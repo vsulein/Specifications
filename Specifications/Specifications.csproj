@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard1.7</TargetFramework>
+    <LangVersion>7.1</LangVersion>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Vadim Sulein</Authors>
+    <Company>Vadim Sulein</Company>
+    <Description>Specification pattern for .NET. Include interface and base class for implamentations.</Description>
+    <Version>0.6.4</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="FastExpressionCompiler" Version="1.10.1" />
+  </ItemGroup>
+</Project>
