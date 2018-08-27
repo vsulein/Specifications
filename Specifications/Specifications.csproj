@@ -7,7 +7,11 @@
     <Authors>Vadim Sulein</Authors>
     <Company>Vadim Sulein</Company>
     <Description>Specification pattern for .NET. Include interface and base class for implamentations.</Description>
-    <Version>0.6.4</Version>
+    <Version>0.6.5</Version>
+    <PackageLicenseUrl>https://github.com/vsulein/Specifications/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/vsulein/Specifications/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/vsulein/Specifications/</RepositoryUrl>
+    <RepositoryType></RepositoryType>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="FastExpressionCompiler" Version="1.10.1" />
