@@ -1,17 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard1.7</TargetFramework>
+    <TargetFramework>netstandard1.6</TargetFramework>
     <LangVersion>7.1</LangVersion>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Vadim Sulein</Authors>
     <Company>Vadim Sulein</Company>
     <Description>Specification pattern for .NET. Include interface and base class for implamentations.</Description>
-    <Version>0.6.5</Version>
+    <Version>0.6.6</Version>
     <PackageLicenseUrl>https://github.com/vsulein/Specifications/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/vsulein/Specifications/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/vsulein/Specifications/</RepositoryUrl>
     <RepositoryType></RepositoryType>
+    <PackageId>Specifications.Exprementation</PackageId>
+    <Product>Specifications.Exprementation</Product>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="FastExpressionCompiler" Version="1.10.1" />
