@@ -8,8 +8,7 @@ namespace Specifications
     {
         private Func<T, bool> _function;
 
-        private Func<T, bool> Function => _function
-                                          ?? (_function = _predicate.CompileFast());
+        private Func<T, bool> Function => _function ?? (_function = _predicate.CompileFast());
 
         private readonly Expression<Func<T, bool>> _predicate;
 
@@ -20,7 +19,7 @@ namespace Specifications
             _predicate = predicate;
         }
 
-        public bool IsSatisfiedBy(T entity) => Function(entity);
+        public bool IsSatisfiedBy(T obj) => Function(obj);
 
         public Expression<Func<T, bool>> ToExpression() => _predicate;
 

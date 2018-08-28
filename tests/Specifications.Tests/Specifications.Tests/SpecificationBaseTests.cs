@@ -1,3 +1,4 @@
+using Specifications.Tests.HelpObjects;
 using Xunit;
 
 namespace Specifications.Tests
@@ -8,7 +9,7 @@ namespace Specifications.Tests
         public void SingleSpecificationWorked()
         {
             var spec = new SpecificationBase<SimpleTestObject>(t => t.Name == "Name");
-            Assert.True(spec.IsSatisfiedBy(SimpleTestObject.Create()));
+            Assert.True(spec.IsSatisfiedBy(SimpleTestObject.Create_For_Test_Where_Count_Is_Five_And_Name_Is_Name()));
         }
 
         [Theory]
@@ -20,8 +21,8 @@ namespace Specifications.Tests
 
             var spec = spec1 & spec2;
 
-            Assert.True(spec.IsSatisfiedBy(SimpleTestObject.Create()));
-            Assert.True(spec.And(spec2).IsSatisfiedBy(SimpleTestObject.Create()));
+            Assert.True(spec.IsSatisfiedBy(SimpleTestObject.Create_For_Test_Where_Count_Is_Five_And_Name_Is_Name()));
+            Assert.True(spec.And(spec2).IsSatisfiedBy(SimpleTestObject.Create_For_Test_Where_Count_Is_Five_And_Name_Is_Name()));
         }
 
         [Theory]
@@ -35,8 +36,8 @@ namespace Specifications.Tests
 
             var spec = spec1 & spec2;
 
-            Assert.False(spec.IsSatisfiedBy(SimpleTestObject.Create()));
-            Assert.False(spec.And(spec2).IsSatisfiedBy(SimpleTestObject.Create()));
+            Assert.False(spec.IsSatisfiedBy(SimpleTestObject.Create_For_Test_Where_Count_Is_Five_And_Name_Is_Name()));
+            Assert.False(spec.And(spec2).IsSatisfiedBy(SimpleTestObject.Create_For_Test_Where_Count_Is_Five_And_Name_Is_Name()));
         }
 
 
@@ -51,8 +52,8 @@ namespace Specifications.Tests
 
             var spec = spec1 | spec2;
 
-            Assert.True(spec.IsSatisfiedBy(SimpleTestObject.Create()));
-            Assert.True(spec.Or(spec2).IsSatisfiedBy(SimpleTestObject.Create()));
+            Assert.True(spec.IsSatisfiedBy(SimpleTestObject.Create_For_Test_Where_Count_Is_Five_And_Name_Is_Name()));
+            Assert.True(spec.Or(spec2).IsSatisfiedBy(SimpleTestObject.Create_For_Test_Where_Count_Is_Five_And_Name_Is_Name()));
         }
 
         [Theory]
@@ -64,8 +65,8 @@ namespace Specifications.Tests
 
             var spec = spec1 | spec2;
 
-            Assert.False(spec.IsSatisfiedBy(SimpleTestObject.Create()));
-            Assert.False(spec.Or(spec2).IsSatisfiedBy(SimpleTestObject.Create()));
+            Assert.False(spec.IsSatisfiedBy(SimpleTestObject.Create_For_Test_Where_Count_Is_Five_And_Name_Is_Name()));
+            Assert.False(spec.Or(spec2).IsSatisfiedBy(SimpleTestObject.Create_For_Test_Where_Count_Is_Five_And_Name_Is_Name()));
         }
 
         [Theory]
@@ -76,11 +77,11 @@ namespace Specifications.Tests
 
             var falseSpec = !trueSpec;
 
-            Assert.True(trueSpec.IsSatisfiedBy(SimpleTestObject.Create()));
-            Assert.False(falseSpec.IsSatisfiedBy(SimpleTestObject.Create()));
+            Assert.True(trueSpec.IsSatisfiedBy(SimpleTestObject.Create_For_Test_Where_Count_Is_Five_And_Name_Is_Name()));
+            Assert.False(falseSpec.IsSatisfiedBy(SimpleTestObject.Create_For_Test_Where_Count_Is_Five_And_Name_Is_Name()));
 
-            Assert.True(trueSpec.IsSatisfiedBy(SimpleTestObject.Create()));
-            Assert.False(trueSpec.Negative().IsSatisfiedBy(SimpleTestObject.Create()));
+            Assert.True(trueSpec.IsSatisfiedBy(SimpleTestObject.Create_For_Test_Where_Count_Is_Five_And_Name_Is_Name()));
+            Assert.False(trueSpec.Negative().IsSatisfiedBy(SimpleTestObject.Create_For_Test_Where_Count_Is_Five_And_Name_Is_Name()));
         }
 
         [Theory]
@@ -91,19 +92,7 @@ namespace Specifications.Tests
 
             var spec = !!spec1;
 
-            Assert.True(spec.IsSatisfiedBy(SimpleTestObject.Create()));
-        }
-
-        class SimpleTestObject
-        {
-            public string Name { get; set; } = "Name";
-
-            public int Count { get; set; } = 5;
-
-            public static SimpleTestObject Create()
-            {
-                return new SimpleTestObject();
-            }
+            Assert.True(spec.IsSatisfiedBy(SimpleTestObject.Create_For_Test_Where_Count_Is_Five_And_Name_Is_Name()));
         }
     }
 }

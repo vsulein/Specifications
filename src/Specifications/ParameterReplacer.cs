@@ -5,24 +5,22 @@ namespace Specifications
 {
     internal class ParameterReplacer : ExpressionVisitor
     {
-        private readonly Dictionary<ParameterExpression, ParameterExpression> map;
+        private readonly Dictionary<ParameterExpression, ParameterExpression> _map;
 
         internal ParameterReplacer(Dictionary<ParameterExpression, ParameterExpression> map)
         {
-            this.map = map ?? new Dictionary<ParameterExpression, ParameterExpression>();
+            _map = map ?? new Dictionary<ParameterExpression, ParameterExpression>();
         }
 
         public static Expression ReplaceParameters(Dictionary<ParameterExpression, ParameterExpression> map,
             Expression exp)
         {
-            var validatedMap = map = map ?? new Dictionary<ParameterExpression, ParameterExpression>();
-
             return new ParameterReplacer(map).Visit(exp);
         }
 
         protected override Expression VisitParameter(ParameterExpression p)
         {
-            if (map.TryGetValue(p, out var replacement))
+            if (_map.TryGetValue(p, out var replacement))
             {
                 p = replacement;
             }
