@@ -20,35 +20,51 @@ namespace Specifications
             _predicate = predicate;
         }
 
-        public bool IsSatisfiedBy(T entity)
-        {
-            return Function(entity);
-        }
+        public bool IsSatisfiedBy(T entity) => Function(entity);
 
-        public Expression<Func<T, bool>> ToExpression()
-        {
-            return _predicate;
-        }
+        public Expression<Func<T, bool>> ToExpression() => _predicate;
 
         public ISpecification<T> And(ISpecification<T> spec)
         {
-            return this & spec;
+            var rightExpr = spec.ToExpression();
+            var leftParam = _predicate.Parameters[0];
+            var rightParam = rightExpr.Parameters[0];
+
+            return new SpecificationBase<T>(
+                Expression.Lambda<Func<T, bool>>(
+                    Expression.AndAlso(
+                        _predicate.Body,
+                        new ParameterReplacer(rightParam, leftParam).Visit(rightExpr.Body) ??
+                        throw new NullReferenceException()),
+                    leftParam));
         }
 
         public ISpecification<T> Or(ISpecification<T> spec)
         {
-            return this | spec;
+            var rightExpr = spec.ToExpression();
+            var leftParam = _predicate.Parameters[0];
+            var rightParam = rightExpr.Parameters[0];
+
+            return new SpecificationBase<T>(
+                Expression.Lambda<Func<T, bool>>(
+                    Expression.Or(
+                        _predicate.Body,
+                        new ParameterReplacer(rightParam, leftParam).Visit(rightExpr.Body) ??
+                        throw new NullReferenceException()),
+                    leftParam));
         }
 
         public ISpecification<T> Negative()
         {
-            return !this;
+            return new SpecificationBase<T>(
+                Expression.Lambda<Func<T, bool>>(
+                    Expression.Not(_predicate.Body),
+                    _predicate.Parameters));
         }
 
-        public static implicit operator Expression<Func<T, bool>>(SpecificationBase<T> spec)
-        {
-            return spec._predicate;
-        }
+        public static implicit operator Expression<Func<T, bool>>(SpecificationBase<T> spec) => spec._predicate;
+
+        public static implicit operator Func<T, bool>(SpecificationBase<T> spec) => spec.Function;
 
         public static bool operator true(SpecificationBase<T> spec)
         {
@@ -60,44 +76,10 @@ namespace Specifications
             return false;
         }
 
-        public static SpecificationBase<T> operator !(SpecificationBase<T> spec)
-        {
-            return new SpecificationBase<T>(
-                Expression.Lambda<Func<T, bool>>(
-                    Expression.Not(spec._predicate.Body),
-                    spec._predicate.Parameters));
-        }
+        public static SpecificationBase<T> operator !(SpecificationBase<T> spec) => (SpecificationBase<T>)spec.Negative();
 
-        public static SpecificationBase<T> operator &(SpecificationBase<T> left, ISpecification<T> right)
-        {
-            var leftExpr = left._predicate;
-            var rightExpr = right.ToExpression();
-            var leftParam = leftExpr.Parameters[0];
-            var rightParam = rightExpr.Parameters[0];
+        public static SpecificationBase<T> operator &(SpecificationBase<T> left, SpecificationBase<T> right) => (SpecificationBase<T>)left.And(right);
 
-            return new SpecificationBase<T>(
-                Expression.Lambda<Func<T, bool>>(
-                    Expression.AndAlso(
-                        leftExpr.Body,
-                        new ParameterReplacer(rightParam, leftParam).Visit(rightExpr.Body) ??
-                        throw new NullReferenceException()),
-                    leftParam));
-        }
-
-        public static SpecificationBase<T> operator |(SpecificationBase<T> left, ISpecification<T> right)
-        {
-            var leftExpr = left._predicate;
-            var rightExpr = right.ToExpression();
-            var leftParam = leftExpr.Parameters[0];
-            var rightParam = rightExpr.Parameters[0];
-
-            return new SpecificationBase<T>(
-                Expression.Lambda<Func<T, bool>>(
-                    Expression.OrElse(
-                        leftExpr.Body,
-                        new ParameterReplacer(rightParam, leftParam).Visit(rightExpr.Body) ?? 
-                        throw new NullReferenceException()),
-                    leftParam));
-        }
+        public static SpecificationBase<T> operator |(SpecificationBase<T> left,  SpecificationBase<T> right) => (SpecificationBase<T>)left.Or(right);
     }
 }
