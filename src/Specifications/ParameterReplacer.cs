@@ -1,21 +1,33 @@
-﻿using System.Linq.Expressions;
+﻿using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace Specifications
 {
     internal class ParameterReplacer : ExpressionVisitor
     {
-        private readonly ParameterExpression _parameter;
-        private readonly ParameterExpression _replacement;
+        private readonly Dictionary<ParameterExpression, ParameterExpression> map;
 
-        public ParameterReplacer(ParameterExpression parameter, ParameterExpression replacement)
+        internal ParameterReplacer(Dictionary<ParameterExpression, ParameterExpression> map)
         {
-            _parameter = parameter;
-            _replacement = replacement;
+            this.map = map ?? new Dictionary<ParameterExpression, ParameterExpression>();
         }
 
-        protected override Expression VisitParameter(ParameterExpression paramExpr)
+        public static Expression ReplaceParameters(Dictionary<ParameterExpression, ParameterExpression> map,
+            Expression exp)
         {
-            return base.VisitParameter(_parameter == paramExpr ? _replacement : paramExpr);
+            var validatedMap = map = map ?? new Dictionary<ParameterExpression, ParameterExpression>();
+
+            return new ParameterReplacer(map).Visit(exp);
+        }
+
+        protected override Expression VisitParameter(ParameterExpression p)
+        {
+            if (map.TryGetValue(p, out var replacement))
+            {
+                p = replacement;
+            }
+
+            return base.VisitParameter(p);
         }
     }
 }

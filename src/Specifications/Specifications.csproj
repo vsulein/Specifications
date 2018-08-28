@@ -11,7 +11,8 @@
     <PackageLicenseUrl>https://github.com/vsulein/Specifications/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/vsulein/Specifications/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/vsulein/Specifications/</RepositoryUrl>
-    <RepositoryType></RepositoryType>
+    <RepositoryType>
+    </RepositoryType>
     <PackageId>Specifications.Exprementation</PackageId>
     <Product>Specifications.Exprementation</Product>
   </PropertyGroup>

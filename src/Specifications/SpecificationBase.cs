@@ -26,32 +26,12 @@ namespace Specifications
 
         public ISpecification<T> And(ISpecification<T> spec)
         {
-            var rightExpr = spec.ToExpression();
-            var leftParam = _predicate.Parameters[0];
-            var rightParam = rightExpr.Parameters[0];
-
-            return new SpecificationBase<T>(
-                Expression.Lambda<Func<T, bool>>(
-                    Expression.AndAlso(
-                        _predicate.Body,
-                        new ParameterReplacer(rightParam, leftParam).Visit(rightExpr.Body) ??
-                        throw new NullReferenceException()),
-                    leftParam));
+            return new SpecificationBase<T>(_predicate.Compose(spec.ToExpression(), Expression.AndAlso));
         }
 
         public ISpecification<T> Or(ISpecification<T> spec)
         {
-            var rightExpr = spec.ToExpression();
-            var leftParam = _predicate.Parameters[0];
-            var rightParam = rightExpr.Parameters[0];
-
-            return new SpecificationBase<T>(
-                Expression.Lambda<Func<T, bool>>(
-                    Expression.Or(
-                        _predicate.Body,
-                        new ParameterReplacer(rightParam, leftParam).Visit(rightExpr.Body) ??
-                        throw new NullReferenceException()),
-                    leftParam));
+            return new SpecificationBase<T>(_predicate.Compose(spec.ToExpression(), Expression.OrElse));
         }
 
         public ISpecification<T> Negative()
