@@ -6,5 +6,5 @@ mono: none
 dotnet: 2.0.0
 
 script:
-
- - dotnet build ./Specifications -c Release
+ - dotnet build ./src/Specifications -c Release
+ - dotnet test  ./tests/Specifications.Tests -c Release
