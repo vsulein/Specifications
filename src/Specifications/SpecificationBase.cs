@@ -33,7 +33,7 @@ namespace Specifications
             return new SpecificationBase<T>(_predicate.Compose(spec.ToExpression(), Expression.OrElse));
         }
 
-        public ISpecification<T> Negative()
+        public ISpecification<T> Not()
         {
             return new SpecificationBase<T>(
                 Expression.Lambda<Func<T, bool>>(
@@ -55,7 +55,7 @@ namespace Specifications
             return false;
         }
 
-        public static SpecificationBase<T> operator !(SpecificationBase<T> spec) => (SpecificationBase<T>)spec.Negative();
+        public static SpecificationBase<T> operator !(SpecificationBase<T> spec) => (SpecificationBase<T>)spec.Not();
 
         public static SpecificationBase<T> operator &(SpecificationBase<T> left, SpecificationBase<T> right) => (SpecificationBase<T>)left.And(right);
 

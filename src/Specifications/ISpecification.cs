@@ -13,6 +13,6 @@ namespace Specifications
 
         ISpecification<T> Or(ISpecification<T> spec);
         
-        ISpecification<T> Negative();
+        ISpecification<T> Not();
     }
 }

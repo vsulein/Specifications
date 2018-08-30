@@ -71,7 +71,7 @@ namespace Specifications.Tests
 
         [Theory]
         [InlineData("Name")]
-        public void NegativeSpecificationTest(string name)
+        public void NotSpecificationTest(string name)
         {
             var trueSpec = new SpecificationBase<SimpleTestObject>(t => t.Name == name);
 
@@ -81,12 +81,12 @@ namespace Specifications.Tests
             Assert.False(falseSpec.IsSatisfiedBy(SimpleTestObject.Create_For_Test_Where_Count_Is_Five_And_Name_Is_Name()));
 
             Assert.True(trueSpec.IsSatisfiedBy(SimpleTestObject.Create_For_Test_Where_Count_Is_Five_And_Name_Is_Name()));
-            Assert.False(trueSpec.Negative().IsSatisfiedBy(SimpleTestObject.Create_For_Test_Where_Count_Is_Five_And_Name_Is_Name()));
+            Assert.False(trueSpec.Not().IsSatisfiedBy(SimpleTestObject.Create_For_Test_Where_Count_Is_Five_And_Name_Is_Name()));
         }
 
         [Theory]
         [InlineData("Name")]
-        public void DoubleNegativeSpecificationTrueTest(string name)
+        public void DoubleNotSpecificationTrueTest(string name)
         {
             var spec1 = new SpecificationBase<SimpleTestObject>(t => t.Name == name);
 

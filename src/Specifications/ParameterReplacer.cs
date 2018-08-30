@@ -7,7 +7,7 @@ namespace Specifications
     {
         private readonly Dictionary<ParameterExpression, ParameterExpression> _map;
 
-        internal ParameterReplacer(Dictionary<ParameterExpression, ParameterExpression> map)
+        private ParameterReplacer(Dictionary<ParameterExpression, ParameterExpression> map)
         {
             _map = map ?? new Dictionary<ParameterExpression, ParameterExpression>();
         }
