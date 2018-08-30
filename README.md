@@ -1,4 +1,6 @@
-# Specifications.Exprementation
+# Specifications.Exprementation 
+
+[![Build Status](https://travis-ci.org/vsulein/Specifications.Exprementation.svg?branch=master)](https://travis-ci.org/vsulein/Specifications.Exprementation)
 
 Installation
 -------------
