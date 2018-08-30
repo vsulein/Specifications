@@ -24,9 +24,9 @@ After installation, create your own class inherited by SpecificationBase
 
 Example:
 ```csharp
-public class ByName<Entity>: SpecificationBase<Entity>
+public class ByName: SpecificationBase<Entity>
 {
-    public ByName(string name): base(t => t.Name = name)
+    public ByName(string name) : base(t => t.Name = name) { }
 }
 ```
 
@@ -36,7 +36,7 @@ And try it
 var entity = new Entity() { Name = "Jonh", Type = 1 }
 var byName = new ByName("Jonh");
 bool result = byName.IsSatisfiedBy(entity) // true
-//worked with IQueryable and implicitly convert to Expression or Delegate(Predicate)
+//work with IQueryable and implicitly convert to Expression or Delegate(Predicate)
 using (var db = new AppContext) {
     var collectionWithEntity = db.Entities.Where(byName); //expression
     collectionWithEntity.AsEnumerable().Where(byName); //delegate
@@ -49,8 +49,8 @@ Specifications support logical operations: and, or, not:
 And 
 
 ```csharp
-var byName = new ByName<Entity>("Jonh");
-var byType = new ByType<Entity>(1);
+var byName = new ByName("Jonh");
+var byType = new ByType(1);
 
 SpecificationBase<Entity> byNameAndType = byName & byType;
 //or interface version
@@ -59,8 +59,8 @@ ISpecification<Entity> byNameAndTypeInterface = byName.And(byType);
 
 Or
 ```csharp
-var byName = new ByName<Entity>("Jonh");
-var byType = new ByType<Entity>(1);
+var byName = new ByName("Jonh");
+var byType = new ByType(1);
    
 SpecificationBase<Entity> byNameAndType = byName | byType;
 //or interface version
@@ -73,7 +73,7 @@ var result = byNameAndType.IsSatisfiedBy(entity) //true
 Not
 
 ```csharp
-var byName = new ByName<Entity>("Joseph");
+var byName = new ByName("Joseph");
 
 SpecificationBase<Entity> notByNameJoseph = !byName;
 //or interface version
