@@ -8,7 +8,7 @@ Installation
 Lib is available as a NuGet package. You can install it using the NuGet Package Console window:
 
 ```
-PM> Install-Package Hangfire
+PM> Install-Package specifications.exprementation
 ```
 Or with dotnet cli
 
