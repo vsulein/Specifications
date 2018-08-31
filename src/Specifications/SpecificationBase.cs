@@ -11,9 +11,7 @@ namespace Specifications
         private Func<T, bool> Function => _function ?? (_function = _predicate.CompileFast());
 
         private readonly Expression<Func<T, bool>> _predicate;
-
-        protected SpecificationBase() { }
-
+        
         public SpecificationBase(Expression<Func<T, bool>> predicate)
         {
             _predicate = predicate;
